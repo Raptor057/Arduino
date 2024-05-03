@@ -1,20 +1,80 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+# Test Bench Listener
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+  
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+Reads signals from the test bench (PLC) every time the trigger pin is activated by the same
+PCL and sends them to the remote server.
+It is divided in 7 files just for the sake of readability:
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+## ETHERNET
+
+- Initialize the ethernet module.
+
+- Read MAC address from the RTC.
+
+- Check if the device is online.
+
+  
+
+## FSM
+
+- Simple implementation of a finite state machine.
+
+- Transition between offline, connecting, connected and active states:
+
+* offline. Device is not connected to the network.
+
+* disconnected. Remote server is not responding UDP messages.
+
+* connected. Device is waiting for the PLC's trigger.
+
+* active. Device send TCP message to remote server and awaits response.
+
+  
+
+## IO
+
+- Pin setup.
+
+- Monitor trigger pin used by PLC.
+
+- Read inputs from PLC.
+
+- Write result to output pins.
+
+  
+
+## LCD
+
+- Initialize LCD screen.
+
+- Centralize messages displayed.
+
+- Control brightness changes.
+
+  
+
+## TCP
+
+- Send TCP message to remote server.
+
+- Awaits remote server response.
+
+  
+
+## UDP
+
+- Initialize UDP client.
+
+- "Ping" remote server.
+
+  
+
+###  To be able to build the project you will need to
+
+1. Install Arduino IDE (https://www.arduino.cc/en/software)
+
+< Version used during development is 1.8.15 >
+
+2. Copy content in libraries directory to the Arduino directory (My Documents\Arduino\libraries)
